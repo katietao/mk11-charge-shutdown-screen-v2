@@ -1,0 +1,13 @@
+../Core/Src/lcd.c:21:13:LCD_I2C_Write	1
+../Core/Src/lcd.c:30:13:LCD_PulseEnable	1
+../Core/Src/lcd.c:43:13:LCD_WriteNibble	1
+../Core/Src/lcd.c:52:13:LCD_WriteByte	1
+../Core/Src/lcd.c:60:19:LCD_Init	1
+../Core/Src/lcd.c:91:6:LCD_SendCommand	1
+../Core/Src/lcd.c:96:6:LCD_SendData	1
+../Core/Src/lcd.c:101:6:LCD_Clear	1
+../Core/Src/lcd.c:107:6:LCD_SetCursor	2
+../Core/Src/lcd.c:113:6:LCD_WriteChar	1
+../Core/Src/lcd.c:118:6:LCD_WriteString	2
+../Core/Src/lcd.c:126:6:LCD_BacklightOn	1
+../Core/Src/lcd.c:132:6:LCD_BacklightOff	1
