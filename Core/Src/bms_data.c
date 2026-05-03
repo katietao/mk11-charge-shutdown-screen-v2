@@ -24,7 +24,7 @@
 #include <string.h>
 
 /* ---------- Global instance ---------- */
-BMS_Data_t bms_data;
+volatile BMS_Data_t bms_data;
 
 /* ---------- Private state ---------- */
 static uint8_t  current_screen = 0;
@@ -33,26 +33,20 @@ static uint32_t last_switch_tick = 0;
 /* ---------- Placeholder init ---------- */
 void BMS_Data_Init(void)
 {
-    /* Cell voltages — stored as V * 10000 */
-    bms_data.highest_cell_voltage = 38000;   /* 3.800 V */
-    bms_data.lowest_cell_voltage  = 32000;   /* 3.200 V */
-    bms_data.avg_cell_voltage     = 35000;   /* 3.500 V */
+    /* Initialize to 0 so we don't display fake data if disconnected */
+    bms_data.highest_cell_voltage = 0;
+    bms_data.lowest_cell_voltage  = 0;
+    bms_data.avg_cell_voltage     = 0;
 
-    /* Pack voltage — stored as V * 10 */
-    bms_data.pack_voltage = 3505;            /* 350.5 V */
+    bms_data.pack_voltage = 0;
 
-    /* Temperatures — stored as °C * 10 */
-    bms_data.highest_temp = 450;             /* 45.0 °C */
-    bms_data.lowest_temp  = 220;             /* 22.0 °C */
-    bms_data.avg_temp     = 335;             /* 33.5 °C */
+    bms_data.highest_temp = 0;
+    bms_data.lowest_temp  = 0;
+    bms_data.avg_temp     = 0;
 
-    /* Current — stored as A * 10 */
-    bms_data.pack_current = 125;             /* 12.5 A */
+    bms_data.pack_current = 0;
+    bms_data.soc = 0;
 
-    /* SOC — stored as % * 10 */
-    bms_data.soc = 850;                      /* 85.0 % */
-
-    /* CAN debug */
     bms_data.can_rx_count = 0;
 }
 

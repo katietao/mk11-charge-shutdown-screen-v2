@@ -50,39 +50,43 @@ typedef struct {
 
 typedef union VOLTAGE_DF {
     struct __attribute__((packed)) {
-        uint16_t avg_cell_voltage;
-        uint16_t lowest_cell_voltage;
-        uint16_t highest_cell_voltage;
-        uint8_t num_valid_voltages;
-        uint8_t reserved7;
+        uint16_t lowest_cell_voltage;  /* Bytes 0-1: Low Cell Voltage (Big-Endian) */
+        uint16_t highest_cell_voltage; /* Bytes 2-3: High Cell Voltage (Big-Endian) */
+        uint8_t reserved4;             /* Byte 4: Blank */
+        uint8_t reserved5;             /* Byte 5: Blank */
+        uint8_t reserved6;             /* Byte 6: Blank */
+        uint8_t crc;                   /* Byte 7: CRC Checksum */
     } data;
     uint8_t array[8];
 } VOLTAGE_DF;
 
 typedef union TEMP_DF {
     struct __attribute__((packed)) {
-        uint16_t avg_temp;
-        uint16_t highest_temp;
-        uint16_t lowest_temp;
-        uint8_t num_valid_temps;
-        uint8_t reserved7;
+        uint16_t dcl;           /* Bytes 0-1: Pack DCL (Big-Endian) */
+        uint8_t ccl;            /* Byte 2: Pack CCL */
+        uint8_t reserved3;      /* Byte 3: Blank */
+        int8_t highest_temp;    /* Byte 4: High Temperature */
+        int8_t lowest_temp;     /* Byte 5: Low Temperature */
+        uint8_t reserved6;      /* Byte 6: Blank */
+        uint8_t crc;            /* Byte 7: CRC Checksum */
     } data;
     uint8_t array[8];
 } TEMP_DF;
 
 typedef union SOC_CURR_PACK_DF {
     struct __attribute__((packed)) {
-        uint16_t soc;
-        uint16_t curr;
-        uint16_t pack_voltage;
-        uint8_t fault_register;
-        uint8_t reserved7;
+        int16_t curr;           /* Bytes 0-1: Pack Current (Big-Endian) */
+        uint16_t pack_voltage;  /* Bytes 2-3: Pack Summed Voltage (Big-Endian) */
+        uint8_t soc;            /* Byte 4: Pack SOC */
+        uint8_t relays_1;       /* Byte 5: Relays and bits */
+        uint8_t relays_2;       /* Byte 6: Relays and bits */
+        uint8_t crc;            /* Byte 7: CRC Checksum */
     } data;
     uint8_t array[8];
 } SOC_CURR_PACK_DF;
 
 /* Global BMS data instance */
-extern BMS_Data_t bms_data;
+extern volatile BMS_Data_t bms_data;
 
 /* ---------- API ---------- */
 
